@@ -1,3 +1,7 @@
+# 9.11.2023 tarihli proje
+
+Proje başlangıcı
+
 # expenseapp
 
 A new Flutter project.
