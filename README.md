@@ -1,6 +1,6 @@
 # 9.11.2023 tarihli proje
 
-Proje başlangıcı
+Proje başlangıcı.
 
 # expenseapp
 
