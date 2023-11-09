@@ -1,6 +1,7 @@
 # 9.11.2023 tarihli proje
 
-Proje başlangıcı.
+Ödev 9.11.2023
+Uygulamanıza bir adet + iconu ve ExpenseApp title'ı içeren Topbar ekleyiniz.
 
 # expenseapp
 
