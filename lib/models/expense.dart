@@ -8,7 +8,7 @@ class Expense {
       : id = uuid.v4();
   final String id;
   final String name;
-  final int price;
+  final double price;
   final DateTime date;
 }
 
