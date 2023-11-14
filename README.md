@@ -1,7 +1,9 @@
-# 9.11.2023 tarihli proje
+# 14.11.2023 tarihli proje
 
-Ödev 9.11.2023
-Uygulamanıza bir adet + iconu ve ExpenseApp title'ı içeren Topbar ekleyiniz.
+Ödev 14.11.2023
+
+DatePicker icon butonuna tıklandığında bir tarih seçici açılması, bu tarih seçiciden seçilen sonucun ekranda tarih formatlanmış bir şekilde yazdırılması işlevlerini ele alalım.
+Kullanıcı maksimum bugünün tarihini, minimum bugünden 1 yıl öncesinin tarihini seçebilmelidir.
 
 # expenseapp
 

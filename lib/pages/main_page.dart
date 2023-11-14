@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:expenseapp/pages/expenses_page.dart';
 import 'package:expenseapp/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class _MainPageState extends State<MainPage> {
                 showModalBottomSheet(
                     context: context,
                     builder: (ctx) {
-                      return NewExpense();
+                      return const NewExpense();
                     });
               },
               icon: const Icon(Icons.add))
