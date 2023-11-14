@@ -71,7 +71,7 @@ class _NewExpenseState extends State<NewExpense> {
 
 DateTime checkDate() {
   final now = DateTime.now();
-  final yearcheck = now.add(const Duration(days: -365, hours: -6));
+  final yearAgo = now.add(const Duration(days: -365, hours: -6));
 
-  return yearcheck;
+  return yearAgo;
 }
