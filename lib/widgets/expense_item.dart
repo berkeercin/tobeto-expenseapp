@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseItem extends StatelessWidget {
-  // Callback fonksiyon
   const ExpenseItem(this.expense, {Key? key}) : super(key: key);
   final Expense expense;
   @override

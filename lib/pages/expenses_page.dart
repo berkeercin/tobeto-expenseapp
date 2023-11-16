@@ -1,32 +1,31 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:expenseapp/data/expense_data.dart';
 import 'package:expenseapp/models/expense.dart';
 import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesPage extends StatefulWidget {
-  const ExpensesPage({Key? key}) : super(key: key);
+  const ExpensesPage(this.refresh, {Key? key}) : super(key: key);
+
+  final int refresh;
 
   @override
   _ExpensesPageState createState() => _ExpensesPageState();
 }
 
 class _ExpensesPageState extends State<ExpensesPage> {
-  List<Expense> expenses = [
-    Expense(
-        name: "Yemek",
-        price: 500.22,
-        date: DateTime.now(),
-        category: Category.food),
-    Expense(
-        name: "Udemy kursu",
-        price: 200.00,
-        date: DateTime.now(),
-        category: Category.work),
-  ];
+  List<Expense> listExpense = listExpenseItem();
 
   @override
   Widget build(BuildContext context) {
+    print("testExpensesPage");
+
+    if (widget.refresh >= 0) {
+      print("test");
+      listExpense = listExpenseItem();
+    }
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -35,10 +34,11 @@ class _ExpensesPageState extends State<ExpensesPage> {
           SizedBox(
             height: 400,
             child: ListView.builder(
-                itemCount: expenses.length,
-                itemBuilder: (context, index) {
-                  return ExpenseItem(expenses[index]);
-                }),
+              itemCount: listExpense.length,
+              itemBuilder: (context, index) {
+                return ExpenseItem(listExpense[index]);
+              },
+            ),
           ),
         ],
       ),

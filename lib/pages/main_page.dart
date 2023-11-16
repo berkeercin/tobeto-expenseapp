@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:expenseapp/pages/expenses_page.dart';
 import 'package:expenseapp/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +10,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int refreshNumber = 0;
+
+  ExpensesPage expensesPage = ExpensesPage(0);
+
+  void setStateAndRefresh(int number) {
+    setState(() {
+      refreshNumber = number;
+      expensesPage = ExpensesPage(refreshNumber);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,17 +30,19 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.deepPurpleAccent,
         actions: [
           IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return const NewExpense();
-                    });
-              },
-              icon: const Icon(Icons.add))
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return NewExpense(setStateAndRefresh);
+                },
+              );
+            },
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
-      body: const ExpensesPage(),
+      body: expensesPage,
     );
   }
 }

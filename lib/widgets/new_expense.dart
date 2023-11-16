@@ -1,11 +1,14 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:expenseapp/data/expense_data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expenseapp/models/expense.dart';
+import '../data/refresh_data.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({Key? key}) : super(key: key);
+  const NewExpense(this.refreshPage, {super.key});
+  final Function(int number) refreshPage;
 
   @override
   _NewExpenseState createState() => _NewExpenseState();
@@ -36,6 +39,7 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
+    int refreshNumber = 0;
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
@@ -97,8 +101,27 @@ class _NewExpenseState extends State<NewExpense> {
                     child: const Text("Kapat")),
                 ElevatedButton(
                     onPressed: () {
-                      print(
-                          "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceControler.text}, $dateText");
+                      if (((_expenseNameController.text != '') &&
+                          (_expensePriceControler.text != '') &&
+                          (_selectedDate != null))) {
+                        var expensePrice =
+                            _expensePriceControler.text.replaceAll(r",", ".");
+                        var _expensePrice = double.tryParse(expensePrice);
+                        if (_expensePrice is double) {
+                          addExpenseItem(
+                            _expenseNameController.text,
+                            _expensePrice,
+                            _selectedDate!,
+                            _selectedCategory,
+                          );
+                          Refresh.refresh();
+
+                          refreshNumber++;
+                          widget.refreshPage(refreshNumber);
+                        }
+                      } else {}
+                      // print(
+                      //     "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceControler.text}, $dateText");
                     },
                     child: const Text("Ekle")),
               ],
