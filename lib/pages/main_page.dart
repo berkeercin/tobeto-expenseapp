@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage> {
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
-                    builder: (ctx) {
+                    builder: (context) {
                       return const NewExpense();
                     });
               },

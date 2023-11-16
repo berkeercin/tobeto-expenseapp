@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:expenseapp/models/expense.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense({Key? key}) : super(key: key);
@@ -14,17 +15,21 @@ class _NewExpenseState extends State<NewExpense> {
   final _expenseNameController = TextEditingController();
   final _expensePriceControler = TextEditingController();
   String dateText = "Tarih seçiniz";
+  DateTime? _selectedDate;
+  Category _selectedCategory = Category.work;
   Future<void> _showDatePicker(BuildContext context) async {
-    DateTime now = DateTime.now();
-    DateTime year = DateTime(now.year - 1, now.month, now.day);
-    DateTime? selected = await showDatePicker(
-        context: context, initialDate: now, firstDate: year, lastDate: now);
+    DateTime today = DateTime.now();
+    DateTime oneYearAgo = DateTime(today.year - 1, today.month, today.day);
+    DateTime? selectedDate = await showDatePicker(
+        context: context,
+        initialDate: _selectedDate == null ? today : _selectedDate!,
+        firstDate: oneYearAgo,
+        lastDate: today);
     setState(() {
-      if (selected == null) {
-        dateText = "Lütfen geçerli bir tarih giriniz";
+      if (selectedDate == null) {
       } else {
-        String fixedDate = DateFormat.yMd().format(selected);
-        dateText = fixedDate;
+        // String fixedDate = DateFormat.yMd().format(selected);
+        _selectedDate = selectedDate;
       }
     });
   }
@@ -50,8 +55,8 @@ class _NewExpenseState extends State<NewExpense> {
                   child: TextField(
                     controller: _expensePriceControler,
                     keyboardType: TextInputType.number,
-                    decoration:
-                        const InputDecoration(labelText: "Harcama miktarı"),
+                    decoration: const InputDecoration(
+                        labelText: "Harcama miktarı", prefixText: "₺"),
                   ),
                 ),
                 IconButton(
@@ -60,14 +65,36 @@ class _NewExpenseState extends State<NewExpense> {
                       await _showDatePicker(context);
                     },
                     icon: const Icon(Icons.calendar_month)),
-                Text(dateText),
+                Text(_selectedDate == null
+                    ? "Tarih Seçiniz"
+                    : DateFormat.yMd().format(_selectedDate!)),
+              ],
+            ),
+            Row(
+              children: [
+                DropdownButton(
+                    value: _selectedCategory,
+                    items: Category.values.map((category) {
+                      return DropdownMenuItem(
+                          value: category, child: Text(category.name));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        if (value != null) _selectedCategory = value;
+                      });
+                      print(value);
+                    })
               ],
             ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: const Text("Kapat")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Kapat")),
                 ElevatedButton(
                     onPressed: () {
                       print(

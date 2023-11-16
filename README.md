@@ -1,9 +1,8 @@
-# 14.11.2023 tarihli proje
+# 16.11.2023 tarihli proje
 
-Ödev 14.11.2023
+Workshop 16.11.2023
 
-DatePicker icon butonuna tıklandığında bir tarih seçici açılması, bu tarih seçiciden seçilen sonucun ekranda tarih formatlanmış bir şekilde yazdırılması işlevlerini ele alalım.
-Kullanıcı maksimum bugünün tarihini, minimum bugünden 1 yıl öncesinin tarihini seçebilmelidir.
+Expense ekleme dialog'unda kaydet butonunun form valid olduğu durumda veriler arasına yeni veriyi ekleme işlemini handle ediniz.
 
 # expenseapp
 

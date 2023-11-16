@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseItem extends StatelessWidget {
+  // Callback fonksiyon
   const ExpenseItem(this.expense, {Key? key}) : super(key: key);
   final Expense expense;
   @override
@@ -20,7 +21,11 @@ class ExpenseItem extends StatelessWidget {
               children: [
                 Text("₺${expense.price.toStringAsFixed(2)}"),
                 const Spacer(),
-                Text(DateFormat.yMMMMEEEEd().format(expense.date))
+                Icon(categoryIcons[expense.category]),
+                const SizedBox(
+                  width: 6,
+                ),
+                Text(DateFormat.yMd().format(expense.date)),
               ],
             )
           ],
