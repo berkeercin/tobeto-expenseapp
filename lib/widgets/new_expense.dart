@@ -14,6 +14,21 @@ class _NewExpenseState extends State<NewExpense> {
   final _expenseNameController = TextEditingController();
   final _expensePriceControler = TextEditingController();
   String dateText = "Tarih seçiniz";
+  Future<void> _showDatePicker(BuildContext context) async {
+    DateTime now = DateTime.now();
+    DateTime year = DateTime(now.year - 1, now.month, now.day);
+    DateTime? selected = await showDatePicker(
+        context: context, initialDate: now, firstDate: year, lastDate: now);
+    setState(() {
+      if (selected == null) {
+        dateText = "Lütfen geçerli bir tarih giriniz";
+      } else {
+        String fixedDate = DateFormat.yMd().format(selected);
+        dateText = fixedDate;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -29,49 +44,41 @@ class _NewExpenseState extends State<NewExpense> {
               maxLength: 50,
               decoration: const InputDecoration(labelText: "Harcama adı"),
             ),
-            TextField(
-              controller: _expensePriceControler,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: "Harcama miktarı"),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _expensePriceControler,
+                    keyboardType: TextInputType.number,
+                    decoration:
+                        const InputDecoration(labelText: "Harcama miktarı"),
+                  ),
+                ),
+                IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () async {
+                      await _showDatePicker(context);
+                    },
+                    icon: const Icon(Icons.calendar_month)),
+                Text(dateText),
+              ],
             ),
-            IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () async {
-                  DateTime now = DateTime.now();
-                  DateTime year = checkDate();
-                  DateTime? selected = await showDatePicker(
-                      context: context,
-                      initialDate: now,
-                      firstDate: year,
-                      lastDate: now);
-                  setState(() {
-                    if (selected == null) {
-                      dateText = "Lütfen geçerli bir tarih giriniz";
-                    } else {
-                      DateTime originalDate = selected;
-                      String fixedDate = DateFormat.yMd().format(originalDate);
-                      dateText = fixedDate;
-                    }
-                  });
-                },
-                icon: const Icon(Icons.calendar_month)),
-            Text(dateText),
-            ElevatedButton(
-                onPressed: () {
-                  print(
-                      "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceControler.text}, $dateText");
-                },
-                child: const Text("Ekle"))
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: () {}, child: const Text("Kapat")),
+                ElevatedButton(
+                    onPressed: () {
+                      print(
+                          "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceControler.text}, $dateText");
+                    },
+                    child: const Text("Ekle")),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-DateTime checkDate() {
-  final now = DateTime.now();
-  final yearAgo = now.add(const Duration(days: -365, hours: -6));
-
-  return yearAgo;
 }
