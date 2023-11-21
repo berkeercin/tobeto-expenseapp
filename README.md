@@ -1,8 +1,13 @@
-# 16.11.2023 tarihli proje
+# 21.12.2023 tarihli proje
 
-Workshop 16.11.2023
+Workshop 21.12.2023
 
-Expense ekleme dialog'unda kaydet butonunun form valid olduğu durumda veriler arasına yeni veriyi ekleme işlemini handle ediniz.
+aşağıdaki işlemleri ExpenseApp projenize uygulayınız
+
+Uygulamanıza bir renk paleti oluşturmak ve global theme kuralları uygulamak
+ARAŞTIRMA VE UYGULAMA
+Silme işleminde bir snackbar gösterilmesi ve snackbarın undo butonuna tıklandığında silinen verinin
+geri getirilmesi..
 
 # expenseapp
 

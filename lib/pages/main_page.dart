@@ -13,13 +13,26 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int refreshNumber = 0;
-
+  late Expense removedExpense;
+  late int indexNumber;
   List<Expense> expense = listExpenseItem();
-  ExpensesPage expensesPage = ExpensesPage(expenses);
   addExpense(Expense newExpense) {
     setState(() {
       expense.add(newExpense);
-      expensesPage = ExpensesPage(expenses);
+    });
+  }
+
+  removeExpense(int index, Expense newExpense) {
+    setState(() {
+      removedExpense = newExpense;
+      indexNumber = index;
+      expense.remove(newExpense);
+    });
+  }
+
+  undoExpense() {
+    setState(() {
+      expense.insert(indexNumber, removedExpense);
     });
   }
 
@@ -28,8 +41,6 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Expense App"),
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.deepPurpleAccent,
         actions: [
           IconButton(
             onPressed: () {
@@ -44,7 +55,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: expensesPage,
+      body: ExpensesPage(expenses, removeExpense, undoExpense),
     );
   }
 }
