@@ -1,3 +1,5 @@
+import 'package:expenseapp/data/expense_data.dart';
+import 'package:expenseapp/models/expense.dart';
 import 'package:expenseapp/pages/expenses_page.dart';
 import 'package:expenseapp/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +14,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int refreshNumber = 0;
 
-  ExpensesPage expensesPage = const ExpensesPage(0);
-
-  void setStateAndRefresh(int number) {
+  List<Expense> expense = listExpenseItem();
+  ExpensesPage expensesPage = ExpensesPage(expenses);
+  addExpense(Expense newExpense) {
     setState(() {
-      refreshNumber = number;
-      expensesPage = ExpensesPage(refreshNumber);
+      expense.add(newExpense);
+      expensesPage = ExpensesPage(expenses);
     });
   }
 
@@ -34,7 +36,7 @@ class _MainPageState extends State<MainPage> {
               showModalBottomSheet(
                 context: context,
                 builder: (context) {
-                  return NewExpense(setStateAndRefresh);
+                  return NewExpense(addExpense);
                 },
               );
             },

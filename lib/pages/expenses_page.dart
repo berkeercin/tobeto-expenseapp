@@ -1,28 +1,19 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:expenseapp/data/expense_data.dart';
 import 'package:expenseapp/models/expense.dart';
 import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesPage extends StatefulWidget {
-  const ExpensesPage(this.refresh, {Key? key}) : super(key: key);
-
-  final int refresh;
-
+  const ExpensesPage(this.expenses, {Key? key}) : super(key: key);
+  final List<Expense> expenses;
   @override
   _ExpensesPageState createState() => _ExpensesPageState();
 }
 
 class _ExpensesPageState extends State<ExpensesPage> {
-  List<Expense> listExpense = listExpenseItem();
-
   @override
   Widget build(BuildContext context) {
-    if (widget.refresh >= 0) {
-      listExpense = listExpenseItem();
-    }
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -31,9 +22,9 @@ class _ExpensesPageState extends State<ExpensesPage> {
           SizedBox(
             height: 400,
             child: ListView.builder(
-              itemCount: listExpense.length,
+              itemCount: widget.expenses.length,
               itemBuilder: (context, index) {
-                return ExpenseItem(listExpense[index]);
+                return ExpenseItem(widget.expenses[index]);
               },
             ),
           ),

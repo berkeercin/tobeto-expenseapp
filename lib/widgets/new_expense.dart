@@ -1,13 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:expenseapp/data/expense_data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expenseapp/models/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense(this.refreshPage, {super.key});
-  final Function(int number) refreshPage;
+  const NewExpense(this.addExpense, {super.key});
+  final Function(Expense expense) addExpense;
 
   @override
   _NewExpenseState createState() => _NewExpenseState();
@@ -38,7 +37,6 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    int refreshNumber = 0;
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
@@ -106,14 +104,13 @@ class _NewExpenseState extends State<NewExpense> {
                             _expensePriceControler.text.replaceAll(r",", ".");
                         var _expensePrice = double.tryParse(expensePrice);
                         if (_expensePrice is double) {
-                          addExpenseItem(
-                            _expenseNameController.text,
-                            _expensePrice,
-                            _selectedDate!,
-                            _selectedCategory,
-                          );
-                          refreshNumber++;
-                          widget.refreshPage(refreshNumber);
+                          Expense addExpenseItem = Expense(
+                              name: _expenseNameController.text,
+                              price: _expensePrice,
+                              date: _selectedDate!,
+                              category: _selectedCategory);
+
+                          widget.addExpense(addExpenseItem);
                         }
                       } else {}
                       // print(
