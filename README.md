@@ -1,6 +1,6 @@
-# 21.12.2023 tarihli proje
+# 21.11.2023 tarihli proje
 
-Workshop 21.12.2023
+Workshop 21.11.2023
 
 aşağıdaki işlemleri ExpenseApp projenize uygulayınız
 
