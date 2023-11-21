@@ -12,7 +12,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int refreshNumber = 0;
 
-  ExpensesPage expensesPage = ExpensesPage(0);
+  ExpensesPage expensesPage = const ExpensesPage(0);
 
   void setStateAndRefresh(int number) {
     setState(() {

@@ -19,10 +19,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("testExpensesPage");
-
     if (widget.refresh >= 0) {
-      print("test");
       listExpense = listExpenseItem();
     }
 

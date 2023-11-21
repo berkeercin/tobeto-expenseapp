@@ -4,7 +4,6 @@ import 'package:expenseapp/data/expense_data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expenseapp/models/expense.dart';
-import '../data/refresh_data.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense(this.refreshPage, {super.key});
@@ -86,7 +85,6 @@ class _NewExpenseState extends State<NewExpense> {
                       setState(() {
                         if (value != null) _selectedCategory = value;
                       });
-                      print(value);
                     })
               ],
             ),
@@ -114,8 +112,6 @@ class _NewExpenseState extends State<NewExpense> {
                             _selectedDate!,
                             _selectedCategory,
                           );
-                          Refresh.refresh();
-
                           refreshNumber++;
                           widget.refreshPage(refreshNumber);
                         }
