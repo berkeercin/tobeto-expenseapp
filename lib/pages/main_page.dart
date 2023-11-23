@@ -40,7 +40,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Expense App"),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text("Expense App"),
         actions: [
           IconButton(
             onPressed: () {

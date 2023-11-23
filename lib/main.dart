@@ -9,10 +9,12 @@ ColorScheme colorScheme1 = const ColorScheme(
     onSecondary: Colors.orange,
     error: Colors.red,
     onError: Colors.redAccent,
-    background: Colors.white30,
+    background: Colors.deepPurple,
     onBackground: Colors.blueGrey,
     onSurface: Colors.white,
     surface: Color.fromARGB(192, 255, 109, 64));
+ColorScheme colorScheme2 =
+    ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent);
 CardTheme cardTheme1 =
     const CardTheme(color: Color.fromARGB(192, 255, 109, 64));
 TextTheme textTheme1 = const TextTheme(

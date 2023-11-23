@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:expenseapp/data/expense_data.dart';
 import 'package:expenseapp/models/expense.dart';
+import 'package:expenseapp/widgets/chart.dart';
 import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
@@ -22,39 +24,48 @@ class _ExpensesPageState extends State<ExpensesPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("Grafik bölümü"),
-          const Spacer(),
-          SizedBox(
-            height: 400,
-            child: ListView.builder(
-              itemCount: widget.expenses.length,
-              itemBuilder: (context, index) {
-                return Dismissible(
-                  key: ValueKey(widget.expenses[index]),
-                  child: ExpenseItem(widget.expenses[index]),
-                  onDismissed: (direction) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: Colors.black,
-                      content: Text(
-                          style: Theme.of(context).textTheme.bodyLarge,
-                          "Başarı ile ${widget.expenses[index].name} silindi"),
-                      action: SnackBarAction(
-                          label: "Geri al",
-                          textColor: Colors.white,
-                          onPressed: () {
-                            widget.onUndo();
-                          }),
-                    ));
+          Expanded(
+            child: SizedBox(
+                height: 280,
+                child: Chart(
+                  allExpenses: expenses,
+                )),
+          ),
+          Expanded(
+            child: SizedBox(
+              height: 500,
+              child: ListView.builder(
+                itemCount: widget.expenses.length,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    key: ValueKey(widget.expenses[index]),
+                    child: ExpenseItem(widget.expenses[index]),
+                    onDismissed: (direction) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.black,
+                        content: Text(
+                            style: Theme.of(context).textTheme.bodyLarge,
+                            "Başarı ile ${widget.expenses[index].name} silindi"),
+                        action: SnackBarAction(
+                            label: "Geri al",
+                            textColor: Colors.white,
+                            onPressed: () {
+                              widget.onUndo();
+                            }),
+                      ));
 
-                    widget.onRemove(index, widget.expenses[index]);
-                  },
-                );
-              },
+                      widget.onRemove(index, widget.expenses[index]);
+                    },
+                  );
+                },
+              ),
             ),
           ),
-          const Spacer(),
-          const SizedBox(
-            height: 30,
+          Expanded(
+            child: const SizedBox(
+              height: 1,
+            ),
           )
         ],
       ),
