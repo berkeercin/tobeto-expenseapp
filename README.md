@@ -1,13 +1,8 @@
-# 21.11.2023 tarihli proje
+# 7.12.2023 tarihli proje
 
-Workshop 21.11.2023
+Workshop 7.12.2023
 
-aşağıdaki işlemleri ExpenseApp projenize uygulayınız
-
-Uygulamanıza bir renk paleti oluşturmak ve global theme kuralları uygulamak
-ARAŞTIRMA VE UYGULAMA
-Silme işleminde bir snackbar gösterilmesi ve snackbarın undo butonuna tıklandığında silinen verinin
-geri getirilmesi..
+Projenizde State Management'ı "RiverPod" ile sağlayınız, dersteki yapıları tekrar ediniz.
 
 # expenseapp
 
