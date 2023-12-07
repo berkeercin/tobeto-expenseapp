@@ -34,11 +34,11 @@ class Chart extends StatelessWidget {
   double get maxTotal {
     double maxTotal = 0;
 
-    for (var element in categoryExpenses) {
+    categoryExpenses.forEach((element) {
       if (element.totalCategoryPrice > maxTotal) {
         maxTotal = element.totalCategoryPrice;
       }
-    }
+    });
     return maxTotal;
   }
 
