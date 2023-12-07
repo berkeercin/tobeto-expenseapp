@@ -10,11 +10,10 @@ class ChartBar extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         child: FractionallySizedBox(
           heightFactor: height,
-          widthFactor: 0.6,
           child: DecoratedBox(
             decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: Theme.of(context).colorScheme.primary,
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(8))),
           ),
