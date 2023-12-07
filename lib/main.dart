@@ -1,5 +1,6 @@
 import 'package:expenseapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 ColorScheme colorScheme1 = const ColorScheme(
     brightness: Brightness.dark,
@@ -21,11 +22,13 @@ TextTheme textTheme1 = const TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
     titleLarge: TextStyle(color: Colors.white));
 void main() {
-  runApp(MaterialApp(
-      theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: colorScheme1,
-          cardTheme: cardTheme1,
-          textTheme: textTheme1),
-      home: const MainPage()));
+  runApp(ProviderScope(
+    child: MaterialApp(
+        theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: colorScheme1,
+            cardTheme: cardTheme1,
+            textTheme: textTheme1),
+        home: const MainPage()),
+  ));
 }

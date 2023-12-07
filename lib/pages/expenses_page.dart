@@ -1,25 +1,23 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:expenseapp/data/expense_data.dart';
 import 'package:expenseapp/models/expense.dart';
+import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:expenseapp/widgets/chart.dart';
 import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExpensesPage extends StatefulWidget {
-  const ExpensesPage(this.expenses, this.onRemove, this.onUndo, {Key? key})
-      : super(key: key);
-  final List<Expense> expenses;
-  final void Function(int index, Expense expense) onRemove;
-  final void Function() onUndo;
+class ExpensesPage extends ConsumerStatefulWidget {
+  const ExpensesPage({Key? key}) : super(key: key);
 
   @override
-  _ExpensesPageState createState() => _ExpensesPageState();
+  ConsumerState<ExpensesPage> createState() => _ExpensesPageState();
 }
 
-class _ExpensesPageState extends State<ExpensesPage> {
+class _ExpensesPageState extends ConsumerState<ExpensesPage> {
   @override
   Widget build(BuildContext context) {
+    List<Expense> expenses = ref.watch(expenseProvider);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,35 +33,37 @@ class _ExpensesPageState extends State<ExpensesPage> {
             child: SizedBox(
               height: 500,
               child: ListView.builder(
-                itemCount: widget.expenses.length,
+                itemCount: expenses.length,
                 itemBuilder: (context, index) {
                   return Dismissible(
-                    key: ValueKey(widget.expenses[index]),
-                    child: ExpenseItem(widget.expenses[index]),
+                    key: ValueKey(expenses[index]),
+                    child: ExpenseItem(expenses[index]),
                     onDismissed: (direction) {
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: Colors.black,
                         content: Text(
                             style: Theme.of(context).textTheme.bodyLarge,
-                            "Başarı ile ${widget.expenses[index].name} silindi"),
+                            "Başarı ile ${expenses[index].name} silindi"),
                         action: SnackBarAction(
                             label: "Geri al",
                             textColor: Colors.white,
                             onPressed: () {
-                              widget.onUndo();
+                              ref.read(expenseProvider.notifier).undoExpense();
                             }),
                       ));
 
-                      widget.onRemove(index, widget.expenses[index]);
+                      ref
+                          .read(expenseProvider.notifier)
+                          .removeExpense(index, expenses[index]);
                     },
                   );
                 },
               ),
             ),
           ),
-          Expanded(
-            child: const SizedBox(
+          const Expanded(
+            child: SizedBox(
               height: 1,
             ),
           )
