@@ -37,9 +37,9 @@ class CategoryExpenses {
 
   double get totalCategoryPrice {
     double sum = 0;
-    expenses.forEach((expense) {
+    for (var expense in expenses) {
       sum += expense.price;
-    });
+    }
 
     return sum;
   }

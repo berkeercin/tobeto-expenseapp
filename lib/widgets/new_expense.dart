@@ -1,18 +1,19 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:expenseapp/providers/expense_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expenseapp/models/expense.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewExpense extends StatefulWidget {
-  const NewExpense(this.addExpense, {super.key});
-  final Function(Expense expense) addExpense;
+class NewExpense extends ConsumerStatefulWidget {
+  const NewExpense({super.key});
 
   @override
-  _NewExpenseState createState() => _NewExpenseState();
+  ConsumerState<NewExpense> createState() => _NewExpenseState();
 }
 
-class _NewExpenseState extends State<NewExpense> {
+class _NewExpenseState extends ConsumerState<NewExpense> {
   final _expenseNameController = TextEditingController();
   final _expensePriceControler = TextEditingController();
   String dateText = "Tarih seçiniz";
@@ -37,6 +38,7 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
+    // List<Expense> expenses = ref.watch(expenseProvider);
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
@@ -110,7 +112,9 @@ class _NewExpenseState extends State<NewExpense> {
                               date: _selectedDate!,
                               category: _selectedCategory);
 
-                          widget.addExpense(addExpenseItem);
+                          ref
+                              .read(expenseProvider.notifier)
+                              .addExpense(addExpenseItem);
                         }
                       } else {}
                       // print(
